@@ -8,13 +8,8 @@ data class Cliente(
     val clienteID: Long? = null,
     @Column(nullable = false) var nome: String = "",
     @Column(nullable = false) var email: String = "",
-    @OneToMany(
-        fetch = FetchType.LAZY,
-        cascade = arrayOf(
-            CascadeType.REMOVE,
-            CascadeType.PERSIST
-        ),
-        mappedBy = "cliente"
-    )
-    var pedidos: List<Pedido> = mutableListOf()
+    @OneToMany(fetch = FetchType.LAZY,
+        cascade = arrayOf(CascadeType.REMOVE, CascadeType.PERSIST),
+        mappedBy = "cliente")
+    var pedidos: List<Pedido> = mutableListOf(),
 )

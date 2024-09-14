@@ -10,7 +10,7 @@ data class Produto(
     @Column(nullable = false) val nome: String = "",
     @Enumerated val unidade: UnidadeMedida = UnidadeMedida.UNIDADE,
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    val categoria: Categoria? = null,
+    var categoria: Categoria? = null,
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
-    val fornecedor: List<Fornecedor> = emptyList()
+    var fornecedor: Fornecedor? = null
 )
