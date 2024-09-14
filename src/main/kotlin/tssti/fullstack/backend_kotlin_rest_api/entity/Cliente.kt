@@ -1,15 +1,20 @@
 package tssti.fullstack.backend_kotlin_rest_api.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 
 @Entity
-data class Cliente (
-    @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
+data class Cliente(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val clienteID: Long? = null,
-    var nome: String = "",
-    var email: String = "",
+    @Column(nullable = false) var nome: String = "",
+    @Column(nullable = false) var email: String = "",
+    @OneToMany(
+        fetch = FetchType.LAZY,
+        cascade = arrayOf(
+            CascadeType.REMOVE,
+            CascadeType.PERSIST
+        ),
+        mappedBy = "cliente"
+    )
     var pedidos: List<Pedido> = mutableListOf()
 )

@@ -1,17 +1,16 @@
 package tssti.fullstack.backend_kotlin_rest_api.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import tssti.fullstack.backend_kotlin_rest_api.common.UnidadeMedida
 
 @Entity
 data class Produto(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val produtoID: Long? = null,
-    val nome: String = "",
-    val unidade: UnidadeMedida = UnidadeMedida.UNIDADE,
+    @Column(nullable = false) val nome: String = "",
+    @Enumerated val unidade: UnidadeMedida = UnidadeMedida.UNIDADE,
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     val categoria: Categoria? = null,
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     val fornecedor: List<Fornecedor> = emptyList()
 )
