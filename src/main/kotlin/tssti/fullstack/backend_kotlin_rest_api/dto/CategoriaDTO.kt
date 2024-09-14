@@ -8,7 +8,7 @@ data class CategoriaDTO(
     val unidade: String
 ){
     fun toEntity(): Categoria = Categoria(
-        id = this.categoriaID,
+        categoriaID = this.categoriaID,
         unidade = this.unidade,
         nome = this.nome
     )

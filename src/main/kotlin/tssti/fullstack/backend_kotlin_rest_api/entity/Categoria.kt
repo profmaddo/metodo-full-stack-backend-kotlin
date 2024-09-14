@@ -8,7 +8,8 @@ import jakarta.persistence.Id
 @Entity
 data class Categoria(
     @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    val id: Long? = null,
+    val categoriaID: Long? = null,
     val nome: String = "",
+    // enum
     val unidade: String = ""
 )

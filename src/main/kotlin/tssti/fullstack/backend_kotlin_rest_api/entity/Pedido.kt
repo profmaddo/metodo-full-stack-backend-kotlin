@@ -10,10 +10,10 @@ import java.util.UUID
 @Entity
 data class Pedido(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    val pedidoID: Long? = null,
     val codigoPedido: UUID = UUID.randomUUID(),
     val quantidade: Int = 0,
     val preco: BigDecimal = BigDecimal.ZERO,
-    // val cliente: Cliente? = null,
-    // val produto: Produto? = null,
+    val cliente: Cliente? = null,
+    val produto: Produto? = null,
 )

@@ -7,7 +7,7 @@ data class ProdutoDTO(
     val nome: String,
 ){
     fun toEntity(): Produto = Produto(
-        id = this.produtoID,
+        produtoID = this.produtoID,
         nome = this.nome
     )
 }

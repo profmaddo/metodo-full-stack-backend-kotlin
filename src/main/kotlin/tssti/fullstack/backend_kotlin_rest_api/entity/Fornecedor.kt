@@ -9,5 +9,8 @@ import jakarta.persistence.Id
 data class Fornecedor(
     @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)
     val fornecedorID: Long? = null,
-    val nome: String = ""
+    val nome: String = "",
+    val contato: String = "",
+    val email: String = "",
+    val produtos: List<Produto> = emptyList()
 )

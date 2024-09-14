@@ -8,7 +8,7 @@ data class PedidoDTO(
     val codigoPedido: UUID,
 ){
     fun toEntity(): Pedido = Pedido(
-        id = this.pedidoID,
+        pedidoID = this.pedidoID,
         codigoPedido = this.codigoPedido
     )
 }
