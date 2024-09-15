@@ -7,5 +7,3 @@ insert into fornecedor (nome, contato,email) values
 ('Fornecedor 6','Contato 6','contato6@email.com'),
 ('Fornecedor 7','Contato 7','contato7@email.com'),
 ('Fornecedor 8','Contato 8','contato8@email.com')
-
-
