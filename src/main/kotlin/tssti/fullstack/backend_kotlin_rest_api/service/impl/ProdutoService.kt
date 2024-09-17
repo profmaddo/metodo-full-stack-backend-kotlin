@@ -9,18 +9,18 @@ import tssti.fullstack.backend_kotlin_rest_api.service.IProdutoService
 class ProdutoService(
     private val produtoRepository: ProdutoRepository
 ) : IProdutoService {
-    override fun save(produto: Produto): Produto =
-        this.produtoRepository.save(produto)
+    override fun save(obj: Produto): Produto =
+        this.produtoRepository.save(obj)
 
     override fun findAll(): List<Produto> {
         return this.produtoRepository.findAll()
     }
 
-    override fun getByID(produtoID: Long): Produto {
-        return this.produtoRepository.getReferenceById(produtoID)
+    override fun getByID(id: Long): Produto {
+        return this.produtoRepository.getReferenceById(id)
     }
 
-    override fun delete(produtoID: Long) {
-        return this.produtoRepository.deleteById(produtoID)
+    override fun delete(id: Long) {
+        return this.produtoRepository.deleteById(id)
     }
 }
