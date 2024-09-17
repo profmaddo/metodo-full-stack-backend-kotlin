@@ -1,5 +1,6 @@
 package tssti.fullstack.backend_kotlin_rest_api.controller
 
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -25,18 +26,23 @@ class ClienteController(
     }
 
     @PostMapping
-    fun save(@RequestBody dto: ClienteDTO): String {
+    fun save(@RequestBody dto: ClienteDTO): ResponseEntity<String> {
         val objDTO = this.clienteService.save(dto.toEntity())
-        return "*** POST: Novo Cliente ${objDTO.nome} salvo com sucesso!"
+        val mensagem = "*** POST: Novo Cliente ${objDTO.nome} salvo com sucesso!"
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensagem)
     }
 
     @GetMapping("/{id}")
-    fun getByID(@PathVariable id: Long): ClienteView {
+    fun getByID(@PathVariable id: Long): ResponseEntity<String> {
         val objDTO: Cliente = this.clienteService.getByID(id)
-        return ClienteView(objDTO)
+        val message = "*** Cliente ${objDTO.nome} recuperado com sucesso!"
+        return ResponseEntity.ok(message)
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long) = this.clienteService.delete(id)
+    fun delete(@PathVariable id: Long): ResponseEntity<Void> {
+        this.clienteService.delete(id)
+        return ResponseEntity.noContent().build()
+    }
 
 }
