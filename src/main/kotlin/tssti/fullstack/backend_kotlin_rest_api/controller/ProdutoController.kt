@@ -17,11 +17,11 @@ class ProdutoController(
 {
    @GetMapping
    fun getAllProdutos(): ResponseEntity<List<ProdutoView>>{
-       val produtos: List<ProdutoView> =
+       val lista: List<ProdutoView> =
            this.produtoService.findAll().stream().map {
-               produto: Produto -> ProdutoView(produto)
+               objDTO: Produto -> ProdutoView(objDTO)
            }.collect(Collectors.toList())
-       return ResponseEntity.status(HttpStatus.OK).body(produtos)
+       return ResponseEntity.status(HttpStatus.OK).body(lista)
 
    }
 

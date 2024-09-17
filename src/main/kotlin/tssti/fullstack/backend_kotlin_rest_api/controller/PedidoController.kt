@@ -17,11 +17,11 @@ class PedidoController(
 {
    @GetMapping
    fun getAllPedidos(): ResponseEntity<List<PedidoView>>{
-       val pedidos: List<PedidoView> =
+       val lista: List<PedidoView> =
            this.pedidoService.findAll().stream().map {
-               pedido: Pedido -> PedidoView(pedido)
+               objDTO: Pedido -> PedidoView(objDTO)
            }.collect(Collectors.toList())
-       return ResponseEntity.status(HttpStatus.OK).body(pedidos)
+       return ResponseEntity.status(HttpStatus.OK).body(lista)
 
    }
 

@@ -17,11 +17,11 @@ class FornecedorController(
 {
    @GetMapping
    fun getAllFornecedores(): ResponseEntity<List<FornecedorView>>{
-       val fornecedores: List<FornecedorView> =
+       val lista: List<FornecedorView> =
            this.fornecedorService.findAll().stream().map {
-               fornecedor: Fornecedor -> FornecedorView(fornecedor)
+               objDTO: Fornecedor -> FornecedorView(objDTO)
            }.collect(Collectors.toList())
-       return ResponseEntity.status(HttpStatus.OK).body(fornecedores)
+       return ResponseEntity.status(HttpStatus.OK).body(lista)
 
    }
 

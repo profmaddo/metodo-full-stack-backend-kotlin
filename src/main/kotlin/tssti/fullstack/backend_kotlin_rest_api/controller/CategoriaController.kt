@@ -17,11 +17,11 @@ class CategoriaController(
 {
    @GetMapping
    fun getAllCategorias(): ResponseEntity<List<CategoriaView>>{
-       val clietes: List<CategoriaView> =
+       val lista: List<CategoriaView> =
            this.categoriaService.findAllCategorias().stream().map {
-               categoria: Categoria -> CategoriaView(categoria)
+               objDTO: Categoria -> CategoriaView(objDTO)
            }.collect(Collectors.toList())
-       return ResponseEntity.status(HttpStatus.OK).body(clietes)
+       return ResponseEntity.status(HttpStatus.OK).body(lista)
 
    }
 

@@ -17,11 +17,11 @@ class ClienteController(
 {
    @GetMapping
    fun getAllClientes(): ResponseEntity<List<ClienteView>>{
-       val cliestes: List<ClienteView> =
+       val lista: List<ClienteView> =
            this.clienteService.findAll().stream().map {
-               cliente: Cliente -> ClienteView(cliente)
+               objDTO: Cliente -> ClienteView(objDTO)
            }.collect(Collectors.toList())
-       return ResponseEntity.status(HttpStatus.OK).body(cliestes)
+       return ResponseEntity.status(HttpStatus.OK).body(lista)
 
    }
 
