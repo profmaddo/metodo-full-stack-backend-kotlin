@@ -4,9 +4,9 @@ import tssti.fullstack.backend_kotlin_rest_api.entity.Fornecedor
 
 interface IFornecedorService {
 
-    fun salvarFornecedor(fornecedor: Fornecedor): Fornecedor
-    fun findAllFornecedores(): List<Fornecedor>
-    fun getFornecedoreByID(fornecedorID: Long): Fornecedor
-    fun deleteFornecedor(fornecedorID: Long)
+    fun save(fornecedor: Fornecedor): Fornecedor
+    fun findAll(): List<Fornecedor>
+    fun getByID(fornecedorID: Long): Fornecedor
+    fun delete(fornecedorID: Long)
 
 }

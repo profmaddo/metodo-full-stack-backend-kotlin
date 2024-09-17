@@ -9,19 +9,19 @@ import tssti.fullstack.backend_kotlin_rest_api.service.IClienteService
 class ClienteService(
     private val clienteRepository: ClienteRepository
 ): IClienteService {
-    override fun salvarCliente(cliente: Cliente): Cliente =
+    override fun save(cliente: Cliente): Cliente =
         this.clienteRepository.save(cliente)
 
 
-    override fun findAllClientes(): List<Cliente> {
+    override fun findAll(): List<Cliente> {
         return this.clienteRepository.findAll()
     }
 
-    override fun getClienteByID(clienteID: Long): Cliente {
+    override fun getByID(clienteID: Long): Cliente {
         return this.clienteRepository.getReferenceById(clienteID)
     }
 
-    override fun deleteCliente(clienteID: Long) {
+    override fun delete(clienteID: Long) {
         return this.clienteRepository.deleteById(clienteID)
     }
 }

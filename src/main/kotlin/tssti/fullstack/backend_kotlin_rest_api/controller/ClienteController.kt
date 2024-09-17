@@ -18,7 +18,7 @@ class ClienteController(
    @GetMapping
    fun getAllClientes(): ResponseEntity<List<ClienteView>>{
        val cliestes: List<ClienteView> =
-           this.clienteService.findAllClientes().stream().map {
+           this.clienteService.findAll().stream().map {
                cliente: Cliente -> ClienteView(cliente)
            }.collect(Collectors.toList())
        return ResponseEntity.status(HttpStatus.OK).body(cliestes)
@@ -27,17 +27,17 @@ class ClienteController(
 
    @PostMapping
    fun salvarCliente(@RequestBody  dto: ClienteDTO): String {
-       val objDTO = this.clienteService.salvarCliente(dto.toEntity())
+       val objDTO = this.clienteService.save(dto.toEntity())
        return "*** POST: Novo Cliente ${objDTO.nome} salvo com sucesso!"
    }
 
     @GetMapping("/{id}")
     fun getClienteByID(@PathVariable id: Long): ClienteView{
-        val objDTO : Cliente = this.clienteService.getClienteByID(id)
+        val objDTO : Cliente = this.clienteService.getByID(id)
         return ClienteView(objDTO)
     }
 
     @DeleteMapping("/{id}")
-    fun deletarCliente(@PathVariable id: Long) = this.clienteService.deleteCliente(id)
+    fun deletarCliente(@PathVariable id: Long) = this.clienteService.delete(id)
 
 }
