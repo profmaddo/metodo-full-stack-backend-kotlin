@@ -5,7 +5,7 @@ import io.swagger.v3.oas.models.info.Info
 import org.springframework.context.annotation.Bean
 
 /**
- * swagger doc API
+ * Swagger Documentação da API
  */
 class SwaggerConfig {
     @Bean
