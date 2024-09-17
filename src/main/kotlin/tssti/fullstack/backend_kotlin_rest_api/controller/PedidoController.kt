@@ -40,7 +40,6 @@ class PedidoController(
         return PedidoView(objDTO)
     }
 
-
     //@DeleteMapping
     @DeleteMapping("/{id}")
     fun deletarPedido(@PathVariable id: Long) = this.pedidoService.deletePedido(id)

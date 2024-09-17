@@ -8,7 +8,7 @@ import tssti.fullstack.backend_kotlin_rest_api.entity.Produto
 data class ProdutoDTO(
     val produtoID: Long,
     val nome: String,
-    val unidade: String,
+    val unidade: String = UnidadeMedida.UNIDADE.toString(),
     val categoriaID: Long,
     val fornecedorID: Long,
 ){
