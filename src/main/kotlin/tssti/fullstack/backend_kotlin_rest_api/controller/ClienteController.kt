@@ -13,31 +13,30 @@ import java.util.stream.Collectors
 @RequestMapping("api/cliente")
 class ClienteController(
     private val clienteService: ClienteService
-)
-{
-   @GetMapping
-   fun getAllClientes(): ResponseEntity<List<ClienteView>>{
-       val lista: List<ClienteView> =
-           this.clienteService.findAll().stream().map {
-               objDTO: Cliente -> ClienteView(objDTO)
-           }.collect(Collectors.toList())
-       return ResponseEntity.status(HttpStatus.OK).body(lista)
+) {
+    @GetMapping
+    fun findAll(): ResponseEntity<List<ClienteView>> {
+        val lista: List<ClienteView> =
+            this.clienteService.findAll().stream().map { objDTO: Cliente ->
+                ClienteView(objDTO)
+            }.collect(Collectors.toList())
+        return ResponseEntity.status(HttpStatus.OK).body(lista)
 
-   }
+    }
 
-   @PostMapping
-   fun salvarCliente(@RequestBody  dto: ClienteDTO): String {
-       val objDTO = this.clienteService.save(dto.toEntity())
-       return "*** POST: Novo Cliente ${objDTO.nome} salvo com sucesso!"
-   }
+    @PostMapping
+    fun save(@RequestBody dto: ClienteDTO): String {
+        val objDTO = this.clienteService.save(dto.toEntity())
+        return "*** POST: Novo Cliente ${objDTO.nome} salvo com sucesso!"
+    }
 
     @GetMapping("/{id}")
-    fun getClienteByID(@PathVariable id: Long): ClienteView{
-        val objDTO : Cliente = this.clienteService.getByID(id)
+    fun getByID(@PathVariable id: Long): ClienteView {
+        val objDTO: Cliente = this.clienteService.getByID(id)
         return ClienteView(objDTO)
     }
 
     @DeleteMapping("/{id}")
-    fun deletarCliente(@PathVariable id: Long) = this.clienteService.delete(id)
+    fun delete(@PathVariable id: Long) = this.clienteService.delete(id)
 
 }

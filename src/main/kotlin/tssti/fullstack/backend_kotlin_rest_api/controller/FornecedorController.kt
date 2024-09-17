@@ -13,31 +13,30 @@ import java.util.stream.Collectors
 @RequestMapping("api/fornecedor")
 class FornecedorController(
     private val fornecedorService: FornecedorService
-)
-{
-   @GetMapping
-   fun getAllFornecedores(): ResponseEntity<List<FornecedorView>>{
-       val lista: List<FornecedorView> =
-           this.fornecedorService.findAll().stream().map {
-               objDTO: Fornecedor -> FornecedorView(objDTO)
-           }.collect(Collectors.toList())
-       return ResponseEntity.status(HttpStatus.OK).body(lista)
+) {
+    @GetMapping
+    fun findAll(): ResponseEntity<List<FornecedorView>> {
+        val lista: List<FornecedorView> =
+            this.fornecedorService.findAll().stream().map { objDTO: Fornecedor ->
+                FornecedorView(objDTO)
+            }.collect(Collectors.toList())
+        return ResponseEntity.status(HttpStatus.OK).body(lista)
 
-   }
+    }
 
-   @PostMapping
-   fun salvarFornecedor(@RequestBody  dto: FornecedorDTO): String {
-       val objDTO = this.fornecedorService.save(dto.toEntity())
-       return "*** POST: Novo Fornecedor ${objDTO.nome} salvo com sucesso!"
-   }
+    @PostMapping
+    fun save(@RequestBody dto: FornecedorDTO): String {
+        val objDTO = this.fornecedorService.save(dto.toEntity())
+        return "*** POST: Novo Fornecedor ${objDTO.nome} salvo com sucesso!"
+    }
 
     @GetMapping("/{id}")
-    fun getFornecedorByID(@PathVariable id: Long): FornecedorView{
-        val objDTO : Fornecedor = this.fornecedorService.getByID(id)
+    fun getByID(@PathVariable id: Long): FornecedorView {
+        val objDTO: Fornecedor = this.fornecedorService.getByID(id)
         return FornecedorView(objDTO)
     }
 
     @DeleteMapping("/{id}")
-    fun deletarCategoria(@PathVariable id: Long) = this.fornecedorService.delete(id)
+    fun delete(@PathVariable id: Long) = this.fornecedorService.delete(id)
 
 }

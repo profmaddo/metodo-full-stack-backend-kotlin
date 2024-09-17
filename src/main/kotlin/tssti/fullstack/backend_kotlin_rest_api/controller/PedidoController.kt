@@ -13,33 +13,31 @@ import java.util.stream.Collectors
 @RequestMapping("api/pedido")
 class PedidoController(
     private val pedidoService: PedidoService
-)
-{
-   @GetMapping
-   fun getAllPedidos(): ResponseEntity<List<PedidoView>>{
-       val lista: List<PedidoView> =
-           this.pedidoService.findAll().stream().map {
-               objDTO: Pedido -> PedidoView(objDTO)
-           }.collect(Collectors.toList())
-       return ResponseEntity.status(HttpStatus.OK).body(lista)
+) {
+    @GetMapping
+    fun findAll(): ResponseEntity<List<PedidoView>> {
+        val lista: List<PedidoView> =
+            this.pedidoService.findAll().stream().map { objDTO: Pedido ->
+                PedidoView(objDTO)
+            }.collect(Collectors.toList())
+        return ResponseEntity.status(HttpStatus.OK).body(lista)
 
-   }
+    }
 
-   @PostMapping
-   fun salvarPedido(@RequestBody  dto: PedidoDTO): String {
-       val objDTO = this.pedidoService.save(dto.toEntity())
-       return "*** POST: Novo Pedido Produto ${objDTO.produto?.nome} salvo com sucesso!"
-   }
+    @PostMapping
+    fun save(@RequestBody dto: PedidoDTO): String {
+        val objDTO = this.pedidoService.save(dto.toEntity())
+        return "*** POST: Novo Pedido Produto ${objDTO.produto?.nome} salvo com sucesso!"
+    }
 
     @GetMapping("/{id}")
-    fun getPedidoByID(@PathVariable id: Long): PedidoView{
-        val objDTO : Pedido = this.pedidoService.getByID(id)
+    fun getByID(@PathVariable id: Long): PedidoView {
+        val objDTO: Pedido = this.pedidoService.getByID(id)
         return PedidoView(objDTO)
     }
 
-    //@DeleteMapping
     @DeleteMapping("/{id}")
-    fun deletarPedido(@PathVariable id: Long) = this.pedidoService.delete(id)
+    fun delete(@PathVariable id: Long) = this.pedidoService.delete(id)
 
 
 }

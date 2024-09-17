@@ -13,31 +13,30 @@ import java.util.stream.Collectors
 @RequestMapping("api/categoria")
 class CategoriaController(
     private val categoriaService: CategoriaService
-)
-{
-   @GetMapping
-   fun getAllCategorias(): ResponseEntity<List<CategoriaView>>{
-       val lista: List<CategoriaView> =
-           this.categoriaService.findAllCategorias().stream().map {
-               objDTO: Categoria -> CategoriaView(objDTO)
-           }.collect(Collectors.toList())
-       return ResponseEntity.status(HttpStatus.OK).body(lista)
+) {
+    @GetMapping
+    fun findAll(): ResponseEntity<List<CategoriaView>> {
+        val lista: List<CategoriaView> =
+            this.categoriaService.findAllCategorias().stream().map { objDTO: Categoria ->
+                CategoriaView(objDTO)
+            }.collect(Collectors.toList())
+        return ResponseEntity.status(HttpStatus.OK).body(lista)
 
-   }
+    }
 
-   @PostMapping
-   fun salvarCategoria(@RequestBody  dto: CategoriaDTO): String {
-       val objDTO = this.categoriaService.salvarCategoria(dto.toEntity())
-       return "*** POST: Nova Categoria ${objDTO.nome} salva com sucesso!"
-   }
+    @PostMapping
+    fun save(@RequestBody dto: CategoriaDTO): String {
+        val objDTO = this.categoriaService.salvarCategoria(dto.toEntity())
+        return "*** POST: Nova Categoria ${objDTO.nome} salva com sucesso!"
+    }
 
     @GetMapping("/{id}")
-    fun getCategoriaByID(@PathVariable id: Long): CategoriaView{
-        val objDTO : Categoria = this.categoriaService.getCategoriaByID(id)
+    fun getByID(@PathVariable id: Long): CategoriaView {
+        val objDTO: Categoria = this.categoriaService.getCategoriaByID(id)
         return CategoriaView(objDTO)
     }
 
     @DeleteMapping("/{id}")
-    fun deletarCategoria(@PathVariable id: Long) = this.categoriaService.deleteCategoria(id)
+    fun delete(@PathVariable id: Long) = this.categoriaService.deleteCategoria(id)
 
 }
