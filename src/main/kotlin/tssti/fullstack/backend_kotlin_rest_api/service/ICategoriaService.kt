@@ -4,9 +4,9 @@ import tssti.fullstack.backend_kotlin_rest_api.entity.Categoria
 
 interface ICategoriaService {
 
-    fun salvarCategoria(categoria: Categoria): Categoria
-    fun findAllCategorias(): List<Categoria>
-    fun getCategoriaByID(categoriaID: Long): Categoria
-    fun deleteCategoria(categoriaID: Long)
+    fun save(categoria: Categoria): Categoria
+    fun findAll(): List<Categoria>
+    fun getByID(categoriaID: Long): Categoria
+    fun delete(categoriaID: Long)
 
 }

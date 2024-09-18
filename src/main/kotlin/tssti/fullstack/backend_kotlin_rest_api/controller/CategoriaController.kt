@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import tssti.fullstack.backend_kotlin_rest_api.dto.CategoriaDTO
 import tssti.fullstack.backend_kotlin_rest_api.entity.Categoria
+import tssti.fullstack.backend_kotlin_rest_api.entity.Cliente
 import tssti.fullstack.backend_kotlin_rest_api.service.impl.CategoriaService
 import tssti.fullstack.backend_kotlin_rest_api.view.CategoriaView
 import java.util.stream.Collectors
@@ -17,7 +18,7 @@ class CategoriaController(
     @GetMapping
     fun findAll(): ResponseEntity<List<CategoriaView>> {
         val lista: List<CategoriaView> =
-            this.categoriaService.findAllCategorias().stream().map { objDTO: Categoria ->
+            this.categoriaService.findAll().stream().map { objDTO: Categoria ->
                 CategoriaView(objDTO)
             }.collect(Collectors.toList())
         return ResponseEntity.status(HttpStatus.OK).body(lista)
@@ -25,18 +26,23 @@ class CategoriaController(
     }
 
     @PostMapping
-    fun save(@RequestBody dto: CategoriaDTO): String {
-        val objDTO = this.categoriaService.salvarCategoria(dto.toEntity())
-        return "*** POST: Nova Categoria ${objDTO.nome} salva com sucesso!"
+    fun save(@RequestBody dto: CategoriaDTO): ResponseEntity<String> {
+        val objDTO = this.categoriaService.save(dto.toEntity())
+        val mensagem = "*** POST: Nova Categoria  ${objDTO.nome} salva com sucesso!"
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensagem)
     }
 
     @GetMapping("/{id}")
-    fun getByID(@PathVariable id: Long): CategoriaView {
-        val objDTO: Categoria = this.categoriaService.getCategoriaByID(id)
-        return CategoriaView(objDTO)
+    fun getByID(@PathVariable id: Long): ResponseEntity<String> {
+        val objDTO: Categoria = this.categoriaService.getByID(id)
+        val message = "*** Categoria ${objDTO.nome} recuperada com sucesso!"
+        return ResponseEntity.ok(message)
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long) = this.categoriaService.deleteCategoria(id)
+    fun delete(@PathVariable id: Long): ResponseEntity<Void> {
+        this.categoriaService.delete(id)
+        return ResponseEntity.noContent().build()
+    }
 
 }
