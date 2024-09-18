@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import tssti.fullstack.backend_kotlin_rest_api.dto.PedidoDTO
+import tssti.fullstack.backend_kotlin_rest_api.entity.Fornecedor
 import tssti.fullstack.backend_kotlin_rest_api.entity.Pedido
 import tssti.fullstack.backend_kotlin_rest_api.service.impl.PedidoService
 import tssti.fullstack.backend_kotlin_rest_api.view.PedidoView
@@ -25,19 +26,24 @@ class PedidoController(
     }
 
     @PostMapping
-    fun save(@RequestBody dto: PedidoDTO): String {
+    fun save(@RequestBody dto: PedidoDTO): ResponseEntity<String> {
         val objDTO = this.pedidoService.save(dto.toEntity())
-        return "*** POST: Novo Pedido Produto ${objDTO.produto?.nome} salvo com sucesso!"
+        val mensagem = "*** POST: Novo Pedido ${objDTO.cliente?.nome} salvo com sucesso!"
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensagem)
     }
 
     @GetMapping("/{id}")
-    fun getByID(@PathVariable id: Long): PedidoView {
+    fun getByID(@PathVariable id: Long): ResponseEntity<String> {
         val objDTO: Pedido = this.pedidoService.getByID(id)
-        return PedidoView(objDTO)
+        val message = "*** Pedido ${objDTO.cliente?.nome} ${objDTO.produto?.nome} recuperado com sucesso!"
+        return ResponseEntity.ok(message)
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long) = this.pedidoService.delete(id)
+    fun delete(@PathVariable id: Long): ResponseEntity<Void> {
+        this.pedidoService.delete(id)
+        return ResponseEntity.noContent().build()
+    }
 
 
 }
