@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import tssti.fullstack.backend_kotlin_rest_api.dto.FornecedorDTO
+import tssti.fullstack.backend_kotlin_rest_api.entity.Cliente
 import tssti.fullstack.backend_kotlin_rest_api.entity.Fornecedor
 import tssti.fullstack.backend_kotlin_rest_api.service.impl.FornecedorService
 import tssti.fullstack.backend_kotlin_rest_api.view.FornecedorView
@@ -25,18 +26,23 @@ class FornecedorController(
     }
 
     @PostMapping
-    fun save(@RequestBody dto: FornecedorDTO): String {
+    fun save(@RequestBody dto: FornecedorDTO): ResponseEntity<String> {
         val objDTO = this.fornecedorService.save(dto.toEntity())
-        return "*** POST: Novo Fornecedor ${objDTO.nome} salvo com sucesso!"
+        val mensagem = "*** POST: Novo Fornecedor ${objDTO.nome} salvo com sucesso!"
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensagem)
     }
 
     @GetMapping("/{id}")
-    fun getByID(@PathVariable id: Long): FornecedorView {
+    fun getByID(@PathVariable id: Long): ResponseEntity<String> {
         val objDTO: Fornecedor = this.fornecedorService.getByID(id)
-        return FornecedorView(objDTO)
+        val message = "*** Fornecedor ${objDTO.nome} recuperado com sucesso!"
+        return ResponseEntity.ok(message)
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long) = this.fornecedorService.delete(id)
+    fun delete(@PathVariable id: Long): ResponseEntity<Void> {
+        this.fornecedorService.delete(id)
+        return ResponseEntity.noContent().build()
+    }
 
 }
