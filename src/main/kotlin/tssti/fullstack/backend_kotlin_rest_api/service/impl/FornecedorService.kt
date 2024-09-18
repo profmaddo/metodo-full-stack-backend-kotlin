@@ -9,18 +9,18 @@ import tssti.fullstack.backend_kotlin_rest_api.service.IFornecedorService
 class FornecedorService(
     private val fornecedorRepository: FornecedorRepository
 ) : IFornecedorService {
-    override fun salvarFornecedor(fornecedor: Fornecedor): Fornecedor =
-        this.fornecedorRepository.save(fornecedor)
+    override fun save(obj: Fornecedor): Fornecedor =
+        this.fornecedorRepository.save(obj)
 
-    override fun findAllFornecedores(): List<Fornecedor> {
+    override fun findAll(): List<Fornecedor> {
         return this.fornecedorRepository.findAll()
     }
 
-    override fun getFornecedoreByID(fornecedorID: Long): Fornecedor {
-        return this.fornecedorRepository.getReferenceById(fornecedorID)
+    override fun getByID(id: Long): Fornecedor {
+        return this.fornecedorRepository.getReferenceById(id)
     }
 
-    override fun deleteFornecedor(fornecedorID: Long) {
-        this.fornecedorRepository.deleteById(fornecedorID)
+    override fun delete(id: Long) {
+        this.fornecedorRepository.deleteById(id)
     }
 }

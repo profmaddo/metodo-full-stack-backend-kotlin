@@ -4,9 +4,9 @@ import tssti.fullstack.backend_kotlin_rest_api.entity.Pedido
 
 interface IPedidoService {
 
-    fun salvarPedido(pedido: Pedido): Pedido
-    fun findAllPedidos(): List<Pedido>
-    fun getPedidoByID(pedidoID: Long): Pedido
-    fun deletePedido(pedidoID: Long)
+    fun save(pedido: Pedido): Pedido
+    fun findAll(): List<Pedido>
+    fun getByID(pedidoID: Long): Pedido
+    fun delete(pedidoID: Long)
     
 }

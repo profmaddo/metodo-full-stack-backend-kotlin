@@ -12,32 +12,36 @@ import java.util.stream.Collectors
 @RestController
 @RequestMapping("api/cliente")
 class ClienteController(
-    private val clienteService: ClienteService
-)
-{
-   @GetMapping
-   fun getAllClientes(): ResponseEntity<List<ClienteView>>{
-       val cliestes: List<ClienteView> =
-           this.clienteService.findAllClientes().stream().map {
-               cliente: Cliente -> ClienteView(cliente)
-           }.collect(Collectors.toList())
-       return ResponseEntity.status(HttpStatus.OK).body(cliestes)
+    private val service: ClienteService
+) {
+    @GetMapping
+    fun findAll(): ResponseEntity<List<ClienteView>> {
+        val lista: List<ClienteView> =
+            this.service.findAll().stream().map { objDTO: Cliente ->
+                ClienteView(objDTO)
+            }.collect(Collectors.toList())
+        return ResponseEntity.status(HttpStatus.OK).body(lista)
 
-   }
+    }
 
-   @PostMapping
-   fun salvarCliente(@RequestBody  dto: ClienteDTO): String {
-       val objDTO = this.clienteService.salvarCliente(dto.toEntity())
-       return "*** POST: Novo Cliente ${objDTO.nome} salvo com sucesso!"
-   }
+    @PostMapping
+    fun save(@RequestBody dto: ClienteDTO): ResponseEntity<String> {
+        val objDTO = this.service.save(dto.toEntity())
+        val mensagem = "*** POST: Novo Cliente ${objDTO.nome} salvo com sucesso!"
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensagem)
+    }
 
     @GetMapping("/{id}")
-    fun getClienteByID(@PathVariable id: Long): ClienteView{
-        val objDTO : Cliente = this.clienteService.getClienteByID(id)
-        return ClienteView(objDTO)
+    fun getByID(@PathVariable id: Long): ResponseEntity<String> {
+        val objDTO: Cliente = this.service.getByID(id)
+        val message = "*** Cliente ${objDTO.nome} recuperado com sucesso!"
+        return ResponseEntity.ok(message)
     }
 
     @DeleteMapping("/{id}")
-    fun deletarCliente(@PathVariable id: Long) = this.clienteService.deleteCliente(id)
+    fun delete(@PathVariable id: Long): ResponseEntity<Void> {
+        this.service.delete(id)
+        return ResponseEntity.noContent().build()
+    }
 
 }

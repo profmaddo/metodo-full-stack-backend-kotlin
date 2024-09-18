@@ -9,19 +9,19 @@ import tssti.fullstack.backend_kotlin_rest_api.service.ICategoriaService
 class CategoriaService(
     private val categoriaRepository: CategoriaRepository
 ): ICategoriaService{
-    override fun salvarCategoria(categoria: Categoria): Categoria =
-        this.categoriaRepository.save(categoria)
+    override fun save(obj: Categoria): Categoria =
+        this.categoriaRepository.save(obj)
 
-    override fun findAllCategorias(): List<Categoria> {
+    override fun findAll(): List<Categoria> {
         return this.categoriaRepository.findAll()
     }
 
-    override fun getCategoriaByID(categoriaID: Long): Categoria {
-        return this.categoriaRepository.getReferenceById(categoriaID)
+    override fun getByID(id: Long): Categoria {
+        return this.categoriaRepository.getReferenceById(id)
     }
 
-    override fun deleteCategoria(categoriaID: Long) {
-        return this.categoriaRepository.deleteById(categoriaID)
+    override fun delete(id: Long) {
+        return this.categoriaRepository.deleteById(id)
     }
 
 

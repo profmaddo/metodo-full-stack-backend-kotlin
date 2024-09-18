@@ -9,18 +9,18 @@ import tssti.fullstack.backend_kotlin_rest_api.service.IPedidoService
 class PedidoService(
     private val pedidoRepository: PedidoRepository
 ): IPedidoService {
-    override fun salvarPedido(pedido: Pedido): Pedido =
-        this.pedidoRepository.save(pedido)
+    override fun save(obj: Pedido): Pedido =
+        this.pedidoRepository.save(obj)
 
-    override fun findAllPedidos(): List<Pedido> {
+    override fun findAll(): List<Pedido> {
         return this.pedidoRepository.findAll()
     }
 
-    override fun getPedidoByID(pedidoID: Long): Pedido {
-        return this.pedidoRepository.getReferenceById(pedidoID)
+    override fun getByID(id: Long): Pedido {
+        return this.pedidoRepository.getReferenceById(id)
     }
 
-    override fun deletePedido(pedidoID: Long) {
-        return this.pedidoRepository.deleteById(pedidoID)
+    override fun delete(id: Long) {
+        return this.pedidoRepository.deleteById(id)
     }
 }

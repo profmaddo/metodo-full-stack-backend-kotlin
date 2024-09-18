@@ -4,9 +4,9 @@ import tssti.fullstack.backend_kotlin_rest_api.entity.Cliente
 
 interface IClienteService {
 
-    fun salvarCliente(cliente: Cliente): Cliente
-    fun findAllClientes(): List<Cliente>
-    fun getClienteByID(clienteID: Long): Cliente
-    fun deleteCliente(clienteID: Long)
+    fun save(cliente: Cliente): Cliente
+    fun findAll(): List<Cliente>
+    fun getByID(clienteID: Long): Cliente
+    fun delete(clienteID: Long)
 
 }
