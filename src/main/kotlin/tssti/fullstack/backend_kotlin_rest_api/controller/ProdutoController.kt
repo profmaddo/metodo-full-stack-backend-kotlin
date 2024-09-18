@@ -12,12 +12,12 @@ import java.util.stream.Collectors
 @RestController
 @RequestMapping("api/produto")
 class ProdutoController(
-    private val produtoService: ProdutoService
+    private val service: ProdutoService
 ) {
     @GetMapping
     fun findAll(): ResponseEntity<List<ProdutoView>> {
         val lista: List<ProdutoView> =
-            this.produtoService.findAll().stream().map { objDTO: Produto ->
+            this.service.findAll().stream().map { objDTO: Produto ->
                 ProdutoView(objDTO)
             }.collect(Collectors.toList())
         return ResponseEntity.status(HttpStatus.OK).body(lista)
@@ -25,18 +25,23 @@ class ProdutoController(
     }
 
     @PostMapping
-    fun save(@RequestBody dto: ProdutoDTO): String {
-        val objDTO = this.produtoService.save(dto.toEntity())
-        return "*** POST: Novo Produto ${objDTO.nome} salvo com sucesso!"
+    fun save(@RequestBody dto: ProdutoDTO): ResponseEntity<String> {
+        val objDTO = this.service.save(dto.toEntity())
+        val mensagem = "*** POST: Novo Produto ${objDTO.nome} salvo com sucesso!"
+        return ResponseEntity.status(HttpStatus.CREATED).body(mensagem)
     }
 
     @GetMapping("/{id}")
-    fun getByID(@PathVariable id: Long): ProdutoView {
-        val objDTO: Produto = this.produtoService.getByID(id)
-        return ProdutoView(objDTO)
+    fun getByID(@PathVariable id: Long): ResponseEntity<String> {
+        val objDTO: Produto = this.service.getByID(id)
+        val message = "*** Produto ${objDTO.nome} recuperado com sucesso!"
+        return ResponseEntity.ok(message)
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Long) = this.produtoService.delete(id)
+    fun delete(@PathVariable id: Long): ResponseEntity<Void> {
+        this.service.delete(id)
+        return ResponseEntity.noContent().build()
+    }
 
 }
